@@ -1,0 +1,55 @@
+\documentclass{amsart}
+% \input{/Users/abhay/Code/Lang/Latex/cheatsheet.tex}
+\input{/Users/abhay/Code/Lang/Latex/cheatsheet.tex}
+\begin{document}
+    \me{Perfect Security, One-Time Pad, etc.}
+    \section{Recap}
+    \is{Perfect Security}{
+        We say that given \(\Pi = \brak{Gen, Enc, Dec}\), \(\forall c \in C\), \(\forall m \in M\), with X as a random variable over M and Y over C, \[\cpr{X = m}{Y = c} = \spr{X = m}\]
+    }
+    \is{Def 2}{
+        \(\forall m_0, m_1 \in M\), \(c \in C\), \[\spr{Enc\brak{m_0, k} = c} = \spr{Enc\brak{m_1, k} = c}\]
+    }
+    \is{Def 3: Perfect Adversarial Indistinguishability}{
+        \begin{itemize}
+            \item Adversary picks message randomly from \cbrak{m_0, m_1}, sends to Alice.
+            \item Alice encrypts, sends it back.
+            \item Adversary guesses.
+        \end{itemize}
+        
+        With \(b \in \cbrak{0, 1}\), \(c = Enc\brak{m_b, k}\), and the adversary guesses \(b' \in \cbrak{0, 1}\), 
+        \[\spr{b = b'} = 0.5\]
+    }
+    \is{One-Time Pad}{
+        K = M = C = \(\cbrak{0, 1}^n\)
+        \[c = m \oplus k\]
+        \is{Issues}{
+            \begin{itemize}
+                \item len(k) = len(m)
+                \item The key cannot be reused.
+            \end{itemize}
+        }
+    }
+
+    \section{Today}
+    \is{Computational Security}{
+        A scheme \(\Pi = \brak{Gen, Enc, Dec}\) is \brak{t, \epsilon} secure if an adversary can find information about m from c using time t (not really time, think big-O) with prob. of correctness \(\ge \epsilon\)
+
+
+    }
+\section{Problems}
+\begin{enumerate}
+    \item Prove OTP is PS with Def 2
+        To prove: \(\spr{Enc\brak{m_0, k} = c} = \spr{Enc\brak{m_1, k} = c}\)
+        where C = M = K = \(\cbrak{0, 1}^n\)
+        % LHS = \(\spr{Enc\brak{m_0, k} = c}\) = \(\)
+        \begin{align*}
+            &\spr{Enc\brak{m_0, k} = c} \\
+            &= \spr{m_0 \oplus k = c}\\
+            &= \spr{k = c \oplus m_0}\\
+            &= \inv{2^n}
+        \end{align*}
+
+    \item Prove OTP is PS with Def 3
+\end{enumerate}
+\end{document}
