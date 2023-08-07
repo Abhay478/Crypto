@@ -1,0 +1,90 @@
+\documentclass{amsart}
+\input{/Users/abhay/Code/Lang/Latex/cheatsheet.tex}
+
+\begin{document}
+    \me{Computational Security, PseudoRandom Generators}
+
+    \section{Computational Security}
+    \is{Computational Security}{
+        A scheme \(\Pi = \brak{Gen, Enc, Dec}\) is \brak{t, \epsilon} secure if an adversary can find information about m from c using time t (not really time, think big-O) with prob. of correctness \(\ge \epsilon\)
+
+        A maxim:
+            \[\brak{1 - \epsilon}^{\frac{3}{\epsilon}} \approx \exp{-3} < 0.1\]
+        Thus, adversary can guess the key with probability 0.9 in time \(\frac{3}{\epsilon}\)
+    }
+
+    \is{Probabilistic Polynomial time}{
+        An algorithm A is said to run in PPT if its runtime \(\leq p(n)\) for some polynomial p, with input size n.
+    }
+
+    \is{Security, again}{
+        Indistinguishability expt with 2 choices:
+
+        \begin{itemize}
+            \item Adversary is efficient
+            \item Probability of success (as defined before) \(\leq 0.5 + negl()\)
+        \end{itemize}
+    }
+
+    \is{Indistinguishability}{
+        AKA Semantic Security
+
+        \(\Pi\) is indistinguishable if an efficient adversary cannot predict a message, given the ciphertext, non-negligibly better than random, i.e. above defn.
+    }
+
+    \section{Pseudo-RNG}
+
+    \is{Seed}{\(s \in \spc{0, 1}{n}\) where n is smol}
+
+    \is{Generating function}{
+        G \dr{\spc{0, 1}{n}}{\spc{0, 1}{\*}}
+
+        where G is deterministic.
+    }
+
+    \is{Unpredictable PRG}{
+        Upon observing \seq{x}{n}, we cannot predict \(x_{n + 1}\) (with probability \(> 0.5\))
+    }
+
+    \is{Common PRG}{
+        \begin{itemize}
+            \item \si{LFSR}{
+                \(x_i = x_{i - 1} \oplus x_{i - 4}\)
+
+                Generalising, with the LFSR sequence \(l = \seq{l}{k}\), \(x_i = \bigoplus_{q \in l} x_{i - q}\)
+            }
+        \end{itemize}
+    }
+
+
+    \section{Problems}
+
+    \begin{enumerate}
+        \item 
+        \(M = C = \spc{0, 1}{2}\)
+
+        \(K = \cbrak{01, 10, 11}\)
+
+        Let the adversarial messages be \(m_0 = 00, m_1 = 11\). Then, 
+        \begin{itemize}
+            \item \(Enc\brak{m_0, 01} = 01\): Guess
+            \item \(Enc\brak{m_0, 10} = 10\): Guess
+            \item \(Enc\brak{m_0, 11} = 11\): Predict \(m_0\)
+            \item \(Enc\brak{m_1, 01} = 10\): Guess
+            \item \(Enc\brak{m_1, 10} = 01\): Guess
+            \item \(Enc\brak{m_1, 11} = 00\): Predict \(m_1\)
+        \end{itemize}
+
+        Clearly, the probability of guessing correctly would be \(\frac{2}{3}\)
+    \end{enumerate}
+
+    \is{Negligible function}{
+        \(f(n)\) is negligible if 
+        \[\lim_{n \rightarrow \infty} f(n) \leq \inv{g(n)} \forall \text{ polynomials } g\]
+    }
+
+    We would aim to make \(\epsilon\) - the probability of guessing the key - a negligible function.
+
+    
+
+\end{document}
